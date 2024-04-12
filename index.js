@@ -281,21 +281,21 @@ wrapper.appendChild(timeH3);
 wrapper.appendChild(ul);
 
 // creating list elemetns 
-asabenehChallenges2020.challenges.forEach(list => {
+asabenehChallenges2020.challenges.forEach(data => {
     const li = document.createElement('li');
 
     li.innerHTML = `
-        <p>${list.name}</p>
+        <a class="challenge-link" href=${data.githubUrl}>${data.name}</a>
         <details class="details-tag">
-            <summary>${list.summary}</summary>
+            <summary>${data.summary}</summary>
         </details>
-        <p>${list.status}</p>
+        <p>${data.status}</p>
     `;
 
-    li.classList.add(list.status);
+    li.classList.add(data.status);
 
     const tag = li.querySelector('.details-tag');
-    list.topics.forEach(topic => {
+    data.topics.forEach(topic => {
         const paragraph = document.createElement('p');
         paragraph.textContent = topic;
 
@@ -321,6 +321,13 @@ lists.forEach(list => {
 });
 document.querySelector('.Done').style.backgroundColor = 'limegreen';
 document.querySelector('.Ongoing').style.backgroundColor = 'lightblue';
+
 document.querySelectorAll('.Coming').forEach(li => {
     li.style.backgroundColor = '#c05757';
-})
+
+    // remove text decoration from anchor elements.
+    li.querySelectorAll('.challenge-link').forEach(link => link.style.textDecoration = 'none');
+});
+
+// provide styel to the all link element
+document.querySelectorAll('.challenge-link').forEach(link => link.style.color = '#000');
