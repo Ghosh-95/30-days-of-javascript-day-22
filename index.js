@@ -1,5 +1,5 @@
 // data
-const asabenehChallenges2020 = {
+const rawData = {
     description: 'Asabeneh Yetayeh challenges',
     challengeTitle: 'Asabeneh Yetayeh challenges',
     challengeSubtitle: '30DaysOfJavaScript Challenge',
@@ -61,16 +61,16 @@ const asabenehChallenges2020 = {
             {
                 social: 'LinkedIn',
                 url: 'https://www.linkedin.com/in/asabeneh/',
-                fontawesomeIcon: '<i class="fab fa-linkedin">'
+                fontawesomeIcon: '<i class="fa-brands fa-linkedin"></i>'
             },
             {
                 social: 'Twitter',
                 url: 'https://twitter.com/Asabeneh',
-                fontawesomeIcon: '<i class="fab fa-twitter-square"></i>'
+                fontawesomeIcon: '<i class="fa-brands fa-twitter"></i>'
             },
             {
                 social: 'Github',
-                fontawesomeIcon: '<i class="fab fa-github-square"></i>',
+                fontawesomeIcon: '<i class="fa-brands fa-github"></i>',
                 url: 'https://github.com/Asabeneh'
             },
             {
@@ -271,9 +271,6 @@ ul.style.marginInline = 'auto';
 ul.style.listStyle = 'none';
 
 
-
-
-
 // appending elements to wrapper
 wrapper.appendChild(h1)
 wrapper.appendChild(h2)
@@ -281,11 +278,13 @@ wrapper.appendChild(timeH3);
 wrapper.appendChild(ul);
 
 // creating list elemetns 
-asabenehChallenges2020.challenges.forEach(data => {
+rawData.challenges.forEach(data => {
     const li = document.createElement('li');
 
     li.innerHTML = `
-        <a class="challenge-link" href=${data.githubUrl}>${data.name}</a>
+        <a class="challenge-link" href=${data.githubUrl}>
+            ${data.name}
+        </a>
         <details class="details-tag">
             <summary>${data.summary}</summary>
         </details>
@@ -331,3 +330,37 @@ document.querySelectorAll('.Coming').forEach(li => {
 
 // provide styel to the all link element
 document.querySelectorAll('.challenge-link').forEach(link => link.style.color = '#000');
+
+const nameH3 = document.createElement('h3');
+nameH3.textContent = rawData.author.firstName + ' ' + rawData.author.lastName;
+nameH3.style.fontSize = '2rem';
+
+const socilaLinks = document.createElement('ul');
+socilaLinks.style.listStyle = 'none';
+
+rawData.author.socialLinks.forEach((link, i) => {
+    const li = document.createElement('li');
+
+    li.innerHTML = `
+        <a href=${link.url}>${link.fontawesomeIcon}</a>
+    `;
+
+    li.style.display = 'inline-block';
+    li.style.fontSize = '2rem';
+    li.querySelectorAll('a').forEach(an => an.style.color = 'black');
+
+    if (i > 0) li.style.marginLeft = '1rem';
+
+    socilaLinks.appendChild(li);
+});
+
+const descriptionPara = document.createElement('p');
+descriptionPara.textContent = rawData.author.bio;
+descriptionPara.style.fontSize = '1.1rem';
+descriptionPara.style.width = '80%';
+descriptionPara.style.marginInline = 'auto';
+
+
+wrapper.appendChild(nameH3);
+wrapper.appendChild(socilaLinks);
+wrapper.appendChild(descriptionPara);
