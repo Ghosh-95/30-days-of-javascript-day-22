@@ -87,6 +87,8 @@ const rawData = {
             'Databases',
             'Developing API'
         ],
+
+        listHead: ['Title', 'Qualificatioin', 'Skills'],
         bio:
             'I am an educator, developer, motivator and content creator. I am a life-long learner. If you like to know more about me checkout my LinkedIn or Github profile. Thank you so much for joining in my quest of changing everyone to developer.'
     },
@@ -228,7 +230,7 @@ const date = new Intl.DateTimeFormat('en-US', {
 
 
 
-const wrapper = document.createElement('div');
+const wrapper = document.createElement('section');
 wrapper.className = 'wrapper';
 wrapper.style.width = '70%';
 wrapper.style.marginInline = 'auto';
@@ -360,7 +362,82 @@ descriptionPara.style.fontSize = '1.1rem';
 descriptionPara.style.width = '80%';
 descriptionPara.style.marginInline = 'auto';
 
-
 wrapper.appendChild(nameH3);
 wrapper.appendChild(socilaLinks);
 wrapper.appendChild(descriptionPara);
+
+// creating wrapper for all the list description; parent-div
+const listDescriptionWrapper = document.createElement('div');
+listDescriptionWrapper.style.display = 'flex';
+listDescriptionWrapper.style.marginBlock = '2rem';
+listDescriptionWrapper.style.justifyContent = 'space-between';
+
+// creating different description wrapper; cntains 'list head and lists' - child div
+for (let i = 0; i < 3; i++) {
+    const divElement = document.createElement('div');
+    divElement.classList.add(`list-description_${i + 1}`, 'list-wrapper');
+
+    divElement.style.textAlign = 'left';
+
+    listDescriptionWrapper.appendChild(divElement);
+};
+
+wrapper.appendChild(listDescriptionWrapper);
+
+function firstListItemsUl() {
+    const firistListDiv = document.querySelector('.list-description_1');
+    const ul = document.createElement('ul');
+
+    let list;
+
+    for (let title of rawData.author.titles) {
+        list = document.createElement('li');
+        list.innerHTML = `<span>${title[0]}</span><span>${title[1]}</span>`;
+
+        // list style
+        list.style.marginBottom = '0.5rem'
+
+        ul.appendChild(list);
+    }
+
+    const h4 = document.createElement('h4');
+    h4.textContent = 'Titles';
+    // h4 style
+    h4.style.marginBottom = '0.8rem';
+    h4.style.fontSize = '1.2rem'
+    firistListDiv.append(h4, ul);
+};
+
+firstListItemsUl()
+
+
+function secondListItemsUl(array, emoji, listHead, container) {
+    const ul = document.createElement('ul');
+    secondListDiv = document.querySelector(`.${container}`);
+
+    let list;
+    for (let item of array) {
+        list = document.createElement('li');
+
+        if (item === 'MSc. Computer Science Ongoing') {
+            list.textContent = `📖 ${item}`;
+        } else {
+            list.textContent = `${emoji} ${item}`;
+        }
+
+        // list style
+        list.style.marginBottom = '0.5rem'
+
+        ul.appendChild(list);
+    }
+
+    const h4 = document.createElement('h4');
+    h4.textContent = listHead;
+    // h4 style
+    h4.style.marginBottom = '0.8rem';
+    h4.style.fontSize = '1.2rem'
+    secondListDiv.append(h4, ul);
+}
+
+secondListItemsUl(rawData.author.skills, '✅', 'Skills', 'list-description_2');
+secondListItemsUl(rawData.author.qualifications, '🧑‍🎓', 'Qualificatioins', 'list-description_3');
