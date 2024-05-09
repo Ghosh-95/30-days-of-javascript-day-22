@@ -252,6 +252,7 @@ h2.textContent = '30daysOfJavaScript Challenge';
 h2.style.textDecoration = 'underline';
 h2.style.color = 'gray';
 h2.style.fontSize = '1.5rem';
+h2.style.marginBlock = '1rem';
 
 // h3 elemt to display time
 const timeH3 = document.createElement('h3');
@@ -269,7 +270,7 @@ setInterval(() => {
 // creating ul and adding style
 const ul = document.createElement('ul');
 ul.style.width = '68%';
-ul.style.marginInline = 'auto';
+ul.style.margin = '1rem auto';
 ul.style.listStyle = 'none';
 
 
@@ -441,3 +442,35 @@ function secondListItemsUl(array, emoji, listHead, container) {
 
 secondListItemsUl(rawData.author.skills, '✅', 'Skills', 'list-description_2');
 secondListItemsUl(rawData.author.qualifications, '🧑‍🎓', 'Qualificatioins', 'list-description_3');
+
+const divKeywords = document.createElement('div');
+divKeywords.style.width = '60rem';
+divKeywords.style.margin = '2rem auto';
+divKeywords.style.padding = '1.2rem';
+
+divKeywords.innerHTML = `<h1 style="text-align: left; margin-bottom: 1rem">Keywords</h1>
+<div class="keyword-container"></div>
+`;
+wrapper.append(divKeywords);
+
+const keywordWrapper = document.querySelector('.keyword-container');
+keywordWrapper.style.display = 'flex';
+keywordWrapper.style.flexWrap = 'wrap';
+
+
+rawData.keywords.forEach(key => {
+    const span = document.createElement('span');
+
+    span.textContent = `# ${key}`;
+
+    span.style.width = 'fit-content';
+    span.style.margin = '0.5rem 0.5rem';
+    span.style.padding = '0.5rem';
+    span.style.borderRadius = '1rem';
+
+    span.style.backgroundColor = getRandomColor();
+    keywordWrapper.append(span);
+
+})
+
+divKeywords.append(keywordWrapper);
